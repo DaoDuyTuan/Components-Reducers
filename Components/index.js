@@ -2,7 +2,7 @@ import CurriculumVitae from './CurriculumVitae';
 import {Table} from "../Reducers/showTable";
 import React from 'react';
 import {PropTypes} from 'react';
-import {connect} from 'react-redux';
+// import {connect} from 'react-redux';
 
 export default class App extends React.Component {
     componentDidMount() {
@@ -15,29 +15,20 @@ export default class App extends React.Component {
     }
 
     render() {
-        const {store} = this.context;
-        const state1 = store.getState().map(t => {
-            if(t.isEdit)
-                return t;
-        });
-        const mapStateToProps = (state= state1) => {
-            return {
-                fullName: state.fullName,
-                Age: state.Age,
-                DOB: state.DOB,
-                workPlace: state.workPlace,
-                phoneNumber: state.phoneNumber,
-                email: state.email
-            }
+        let id;
+        let isEdit;
 
-        };
-        const CurriculumVitaeApp = connect(
-            mapStateToProps
-        )(CurriculumVitae);
+        const {store} = this.context;
+        const state = store.getState().filter(t => t.isEdit === true);
+
+        state.map(st => {
+            id = st.id;
+            isEdit = st.isEdit;
+        });
 
         return (
             <div>
-                <CurriculumVitaeApp/>
+                <CurriculumVitae isEdit={isEdit} id={id}/>
                 <Table/>
             </div>
         )

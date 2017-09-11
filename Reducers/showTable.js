@@ -13,7 +13,6 @@ export class Table extends React.Component {
 
     render() {
         const {store} = this.context;
-
         return (
             <table>
                 <tbody>
@@ -30,12 +29,6 @@ export class Table extends React.Component {
                                     e.preventDefault();
                                     store.dispatch({
                                         type: 'EDIT_PERSON',
-                                        fullName: item.fullName,
-                                        Age: item.Age,
-                                        DOB: item.DOB,
-                                        phoneNumber: item.phoneNumber,
-                                        workPlace: item.workPlace,
-                                        email: item.email,
                                         id: item.id
                                     });
                                 }}>
@@ -43,7 +36,14 @@ export class Table extends React.Component {
                                 </button>
                             </td>
                             <td>
-                                <button>Delete</button>
+                                <button onClick={(e) => {
+                                    e.preventDefault();
+                                    store.dispatch({
+                                        type: 'DELETE_PERSON',
+                                        id: item.id
+                                    });
+                                }}>Delete
+                                </button>
                             </td>
                         </tr>
                     )
@@ -57,3 +57,11 @@ export class Table extends React.Component {
 Table.contextTypes = {
     store: PropTypes.object
 };
+
+
+// fullName: item.fullName,
+//     Age: item.Age,
+//     DOB: item.DOB,
+//     phoneNumber: item.phoneNumber,
+//     workPlace: item.workPlace,
+//     email: item.email,

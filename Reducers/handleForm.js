@@ -6,12 +6,15 @@ export const handleForm = (state = [], action) => {
                 todo(undefined, action)
             ];
         case 'EDIT_PERSON':
-            return state.map(t => todo(t, action));
+            return state.map(state => todo(state, action));
+        case 'DELETE_PERSON':
+            const removeIndex = state.map(state => state.id).indexOf(action.id);
+            state.splice(removeIndex,1);
+            return [...state];
         default:
             return state;
     }
 };
-
 
 const todo = (state, action) => {
     switch (action.type) {
@@ -33,9 +36,8 @@ const todo = (state, action) => {
 
             return {
                 ...state,
-                isEdit: true
+                isEdit: !state.isEdit
             };
-
         default:
             return state;
     }
